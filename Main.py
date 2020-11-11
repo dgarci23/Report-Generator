@@ -1,6 +1,10 @@
 from higher_functions import *
 from lower_functions import *
 
+import os
+
+os.chdir("./Report-Generator")
+
 Pref, CheckEmail = Download_Email()
 
 if CheckEmail:
