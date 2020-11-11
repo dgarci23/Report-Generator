@@ -1002,6 +1002,8 @@ def OperationsExcel(data, sheet_ranges):
 
         sheet_ranges['G' + str(index_elemento+9)].value = TipoMedio
 
+        sheet_ranges['H' + str(index_elemento+9)].value = GetNombreMedio(data["Link"])
+
         sheet_ranges['I' + str(index_elemento+9)].value = GetSize(TipoMedio)
 
         sheet_ranges['L' + str(index_elemento+9)].value = GetValor(TipoMedio, index_elemento)
@@ -1061,6 +1063,30 @@ def GetSize(TipoMedio):
         return "1 post"
     else:
         return ""
+
+
+'''
+Nombre de la función: GetSize
+Entradas: TipoMedio
+Salidas: Tamaño
+
+Regresa el Tamaño dependiendo del Tipo de Medio
+'''
+def GetNombreMedio(link):
+
+    file = open("NombreMedios.txt", "r", encoding="utf8")
+
+    lines = file.read()
+
+    for line in lines:
+
+        for medio in line[1:len(lines)]:
+
+            if medio in link:
+
+                return line[0]
+
+    return ""
 
 
 '''
