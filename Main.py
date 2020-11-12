@@ -6,12 +6,6 @@ import os
 '''if not(os.getcwd() == "/home/dgarci23/Report-Generator"): 
 	os.chdir("/home/dgarci23/Report-Generator")'''
 
-while True:
-	try:
-		Pref, CheckEmail = Download_Email()
-		break
-	except IMAP4.error:
-		pass
 
 if CheckEmail:
 
