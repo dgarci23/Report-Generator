@@ -3,8 +3,8 @@ from lower_functions import *
 
 import os
 
-'''if not(os.getcwd() == "/home/dgarci23/Report-Generator"): 
-	os.chdir("/home/dgarci23/Report-Generator")'''
+if not(os.getcwd() == "/home/dgarci23/Report-Generator"):
+	os.chdir("/home/dgarci23/Report-Generator")
 
 Pref, CheckEmail = Download_Email()
 
@@ -20,11 +20,10 @@ if CheckEmail:
 
     if Pref[0].lower() == 'excel' : size_file = DanielaPPTX(Pref);
 
-    Delete_Email()
+    
 
-    print('email deleted')
+if CheckEmail: Send_Email(Pref[0], size_file);
 
-
-if CheckEmail: Send_Email(Pref[0], size_file, );
+if CheckEmail: Delete_Email()
 
 if CheckEmail: print('email sent')

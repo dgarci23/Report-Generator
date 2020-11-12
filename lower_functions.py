@@ -1139,8 +1139,8 @@ Carga las preferencias de la funcion principal
 '''
 def f_Email_Preferencias():
 
-    mail = imaplib.IMAP4_SSL('imap.gmail.com')
-    mail.login("DanielaPPTX@gmail.com","1234567Dg!")
+    mail = imaplib.IMAP4_SSL("imap.gmail.com", port = 993)
+    mail.login("DanielaPPTX@gmail.com","0j05DeDrag0n")
     mail.select("INBOX")
 
     return mail
@@ -1215,10 +1215,10 @@ Salidas: subject
 
 Regresa el subject dependiendo del tamaño del archivo y el nombre dependiendo del tipo
 '''
-def f_size_type(file_size, tipo, empresa, mes):
+def f_size_type(file_size, tipo):
 
     if file_size < 25:
-        subject = "Respuesta procesada " + empresa + " " + mes
+        subject = "Respuesta procesada"
     else:
         subject = "Archivo muy pesado, contactar"
 
@@ -1242,7 +1242,7 @@ def Credenciales_Correo():
 
     Cred = {"sender_email" : "DanielaPPTX@gmail.com",
             "receiver_email" : "daniacostav09@gmail.com",
-            "pwrd" : "1234567Dg!"}
+            "pwrd" : "0j05DeDrag0n"}
 
     return Cred
 
@@ -1254,7 +1254,7 @@ Salidas: message, filename
 
 Crea el mensaje
 '''
-def CreateMessage(file_size, tipo, Cred, empresa, mes):
+def CreateMessage(file_size, tipo, Cred):
 
     message = MIMEMultipart()
 
@@ -1262,7 +1262,7 @@ def CreateMessage(file_size, tipo, Cred, empresa, mes):
 
     message["To"] = Cred["receiver_email"]
 
-    [message["Subject"], filename] = f_size_type(file_size, tipo, empresa, mes)
+    [message["Subject"], filename] = f_size_type(file_size, tipo)
 
     text = MIMEText(CuerpoCorreo(),"plain")
     message.attach(text)

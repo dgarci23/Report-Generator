@@ -1,9 +1,8 @@
 from higher_functions import *
 from lower_functions import *
 
-#os.chdir("./Report-Generator")
-
 while True:
+
     Pref, CheckEmail = Download_Email()
 
     if CheckEmail:
@@ -18,12 +17,11 @@ while True:
 
         if Pref[0].lower() == 'excel' : size_file = DanielaPPTX(Pref);
 
-        Delete_Email()
-
-        print('email deleted')
 
 
     if CheckEmail: Send_Email(Pref[0], size_file);
+
+    if CheckEmail: Delete_Email()
 
     if CheckEmail: print('email sent')
 
