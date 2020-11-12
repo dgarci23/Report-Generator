@@ -155,11 +155,11 @@ def Delete_Email():
 
 # --------------------------------FUNCION: SEND_EMAIL-----------------------------------
 
-def Send_Email(tipo, file_size):
+def Send_Email(tipo, file_size, empresa, mes):
 
     Cred = Credenciales_Correo()
 
-    msg, filename = CreateMessage(file_size, tipo, Cred)
+    msg, filename = CreateMessage(file_size, tipo, Cred, empresa, mes)
 
     part = addAttachment(msg, filename)
 

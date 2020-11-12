@@ -279,7 +279,8 @@ def f_IgScreenShots(driver, link):
 
     time.sleep(3)
 
-    submit_button = driver.find_elements_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button')[0]
+    #submit_button = driver.find_elements_by_xpath('//*[@id="react-root"]/section/main/div/div/div/div/button')[0]
+    submit_button = driver.find_elements_by_xpath('//*[@id="loginForm"]/div/div[3]/button')[0]
     submit_button.click()
 
     time.sleep(3)
@@ -1214,10 +1215,10 @@ Salidas: subject
 
 Regresa el subject dependiendo del tamaño del archivo y el nombre dependiendo del tipo
 '''
-def f_size_type(file_size, tipo):
+def f_size_type(file_size, tipo, empresa, mes):
 
     if file_size < 25:
-        subject = "Respuesta procesada"
+        subject = "Respuesta procesada " + empresa + " " + mes
     else:
         subject = "Archivo muy pesado, contactar"
 
@@ -1253,7 +1254,7 @@ Salidas: message, filename
 
 Crea el mensaje
 '''
-def CreateMessage(file_size, tipo, Cred):
+def CreateMessage(file_size, tipo, Cred, empresa, mes):
 
     message = MIMEMultipart()
 
@@ -1261,7 +1262,7 @@ def CreateMessage(file_size, tipo, Cred):
 
     message["To"] = Cred["receiver_email"]
 
-    [message["Subject"], filename] = f_size_type(file_size, tipo)
+    [message["Subject"], filename] = f_size_type(file_size, tipo, empresa, mes)
 
     text = MIMEText(CuerpoCorreo(),"plain")
     message.attach(text)
