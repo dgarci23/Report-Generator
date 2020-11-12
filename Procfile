@@ -1,1 +1,1 @@
-worker: python Report-Generator.py
+worker: python3 Report-Generator.py
