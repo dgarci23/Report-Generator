@@ -5,9 +5,11 @@ while True:
 
     Pref, CheckEmail = Download_Email()
 
+    print("Email Checked")
+
     if CheckEmail:
 
-        print('archivo encontrado!')
+        print('Found')
 
         Pref = Pref.split('-')
 
@@ -17,6 +19,9 @@ while True:
 
         if Pref[0].lower() == 'excel' : size_file = DanielaPPTX(Pref);
 
+    else:
+
+        print("Not found")
 
 
     if CheckEmail: Send_Email(Pref[0], size_file);
@@ -25,4 +30,5 @@ while True:
 
     if CheckEmail: print('email sent')
 
+    print("Sleep...")
     time.sleep(120)
