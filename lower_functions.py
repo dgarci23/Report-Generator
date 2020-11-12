@@ -1115,7 +1115,7 @@ Salidas: None
 Agrega el Titular de Gestion y el Tipo de Gestion
 '''
 def Gestion_loop(data, sheet_ranges, orderGestion):
-    gestion_cat = [["Titular de Gestión", 'E'],["Tipo de Gestión", 'D']])
+    gestion_cat = [["Titular de Gestión", 'E'],["Tipo de Gestión", 'D']]
     for gestion_tipo in gestion_cat:
 
         for index in range(len(data["Fecha"])):
