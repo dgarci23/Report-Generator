@@ -3,8 +3,8 @@ from lower_functions import *
 
 import os
 
-if not(os.getcwd() == "/home/dgarci23/Report-Generator"): 
-	os.chdir("/home/dgarci23/Report-Generator")
+'''if not(os.getcwd() == "/home/dgarci23/Report-Generator"): 
+	os.chdir("/home/dgarci23/Report-Generator")'''
 
 while True:
 	try:
