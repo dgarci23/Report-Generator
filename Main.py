@@ -10,7 +10,7 @@ while True:
 	try:
 		Pref, CheckEmail = Download_Email()
 		break
-	except imaplib.error:
+	except IMAP4.error:
 		pass
 
 if CheckEmail:
