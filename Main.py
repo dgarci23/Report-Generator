@@ -6,6 +6,7 @@ import os
 '''if not(os.getcwd() == "/home/dgarci23/Report-Generator"): 
 	os.chdir("/home/dgarci23/Report-Generator")'''
 
+Pref, CheckEmail = Download_Email()
 
 if CheckEmail:
 
