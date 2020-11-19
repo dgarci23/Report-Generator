@@ -20,10 +20,10 @@ if CheckEmail:
 
     if Pref[0].lower() == 'excel' : size_file = DanielaPPTX(Pref);
 
-    
 
 if CheckEmail: Send_Email(Pref[0], size_file);
 
 if CheckEmail: Delete_Email()
 
 if CheckEmail: print('email sent')
+
