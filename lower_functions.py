@@ -10,6 +10,7 @@ from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from shutil import copyfile
 
 import glob
 import os
@@ -207,11 +208,36 @@ def f_loopScreenShots(NombreEmpresa, index_final, sheet_ranges):
 
         link = sheet_ranges['AA' + str(current_index)].value.lower()
 
-        if link != 'no':
+        if "http" in link:
 
             f_ScreenShots(NombreEmpresa, current_index-8, link)
             print('Exito: ' + link)
 
+        if "radio" in link:
+
+            RadioImage(NombreEmpresa, current_index-8, link)
+
+
+'''
+Nombre de la función: RadioImage
+Entrada: NombreEmpresa, current_index, link
+Salida: None
+
+Guarda la imagen de la radio
+'''
+def RadioImage(NombreEmpresa, current_index, link):
+
+    radios = ["ancon", "continente", "exitosa", "mia", "panama", "rpc", "telemetro", "tvn"]
+
+    for radio in radios:
+
+        if radio in link:
+
+            src_image = "./Radio/" + radio + ".png"
+
+            dest_image = NombreEmpresa + " " + current_index + ".png"
+
+            copyfile(src_image, dest_image)
 
 
 '''
