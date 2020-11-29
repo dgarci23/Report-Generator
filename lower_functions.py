@@ -213,7 +213,7 @@ def f_loopScreenShots(NombreEmpresa, index_final, sheet_ranges):
             f_ScreenShots(NombreEmpresa, current_index-8, link)
             print('Exito: ' + link)
 
-        if "radio" in link:
+        elif "radio" in link:
 
             RadioImage(NombreEmpresa, current_index-8, link)
 
@@ -235,7 +235,7 @@ def RadioImage(NombreEmpresa, current_index, link):
 
             src_image = "./Radio/" + radio + ".png"
 
-            dest_image = NombreEmpresa + " " + current_index + ".png"
+            dest_image = NombreEmpresa + " " + str(current_index) + ".png"
 
             copyfile(src_image, dest_image)
 
