@@ -1037,6 +1037,8 @@ def OperationsExcel(data, sheet_ranges):
 
         sheet_ranges['O' + str(index_elemento+9)].value = '=IF(N{}=1,1,"")'.format(index_elemento+9)
 
+        sheet_ranges['P' + str(index_elemento+9)].value = '=IF(N{}=2,1,"")'.format(index_elemento+9)
+
         sheet_ranges['Q' + str(index_elemento+9)].value = '=IF(N{}=3,1,"")'.format(index_elemento+9)
 
         sheet_ranges['M' + str(index_elemento+9)].value = '=L{}*4'.format(index_elemento+9)
