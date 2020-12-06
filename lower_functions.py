@@ -1291,8 +1291,9 @@ def CreateMessage(file_size, tipo, Cred):
 
     [message["Subject"], filename] = f_size_type(file_size, tipo)
 
-    text = MIMEText(CuerpoCorreo(),"plain")
-    message.attach(text)
+    if (tipo == "Word"):
+        text = MIMEText(CuerpoCorreo(),"plain")
+        message.attach(text)
 
     return message, filename
 
