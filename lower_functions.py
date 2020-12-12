@@ -1167,7 +1167,7 @@ Carga las preferencias de la funcion principal
 def f_Email_Preferencias():
 
     mail = imaplib.IMAP4_SSL("imap.gmail.com", port = 993)
-    mail.login("DanielaPPTX@gmail.com","0j05DeDrag0n")
+    mail.login("DanielaPPTX@gmail.com","123456789DavidGarcia")
     mail.select("INBOX")
 
     return mail
@@ -1269,7 +1269,7 @@ def Credenciales_Correo():
 
     Cred = {"sender_email" : "DanielaPPTX@gmail.com",
             "receiver_email" : "daniacostav09@gmail.com",
-            "pwrd" : "0j05DeDrag0n"}
+            "pwrd" : "123456789DavidGarcia"}
 
     return Cred
 
