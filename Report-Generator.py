@@ -30,5 +30,7 @@ while True:
 
     if CheckEmail: print('email sent')
 
+    break
+
     print("Sleep...")
     time.sleep(120)
