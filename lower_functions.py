@@ -1051,7 +1051,7 @@ Salidias: None
 Añade el hipervinculo a la columna G
 '''
 def addHyperlink(sheet_ranges, index, link):
-    if link.lower().strip() != 'no':
+    if "http" in link.lower().strip():
         sheet_ranges['G' + str(index+9)].hyperlink = link
         sheet_ranges['G' + str(index+9)].font = Font(size = "11", color="0563C1")
 
