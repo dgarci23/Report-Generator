@@ -635,7 +635,7 @@ def editFecha(Fecha):
         mes = 'Octubre'
     elif mes == 'Nov':
         mes = 'Noviembre'
-    elif mes == 'Dic':
+    elif mes == 'Dec':
         mes = 'Diciembre'
 
     Fecha = dia + ' de ' + mes

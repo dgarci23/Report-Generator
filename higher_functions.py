@@ -14,7 +14,7 @@ def DanielaPPTX(Preferencias):
 
     #Carga archivo .xlsx
     sheet_ranges = loadXLSX(Preferencias, Empresa)
-    print('Archivo .xlsx leído')
+    print('Archivo .xlsx leido')
 
     #Encontrar numero de entradas
     index_final = f_FinalIndex(sheet_ranges)
