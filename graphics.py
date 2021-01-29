@@ -29,7 +29,7 @@ def createGraphicsWorksheet():
 
     excelData = Workbook()
 
-    graphicsWorksheet = excelData.create_sheet("Graficas")
+    graphicsWorksheet = excelData.active
 
     return graphicsWorksheet, excelData
 
@@ -90,64 +90,37 @@ def getIndexes(data, worksheets):
             index += 1
 
     return indexes
-    
-def getImpactos(data, indexes):
 
-    impactos = {}
+def getCriteriaPerMonth(criteriaName, criteriaCols, data, indexes):
 
-    for sheet in indexes.keys():
-
-        currentSheetData = data[sheet]  
-
-        impactos[sheet] = currentSheetData["K" + str(indexes[sheet])].value 
-
-    return impactos 
-
-def addImpactos(impactos):
-
-    row = parametersIndexes["Impactos"][1]
-    col = parametersIndexes["Impactos"][0]
-
-    graphicsSheet.cell(row,col).value = "Mes"
-    graphicsSheet.cell(row,col+1).value = "Impactos"
-
-    row += 1
-
-    for month in worksheets:
-        graphicsSheet.cell(row,col).value = month
-        graphicsSheet.cell(row,col+1).value = impactos[month]
-        row += 1
-
-def getTier(data, indexes):
-
-    tier = {}
+    graphicsInformation[criteriaName] = {}
 
     for sheet in indexes.keys():
 
         currentSheetData = data[sheet]
 
-        tier[sheet] = [currentSheetData["O" + str(indexes[sheet])].value, currentSheetData["P" + str(indexes[sheet])].value, currentSheetData["Q" + str(indexes[sheet])].value]
+        graphicsInformation[criteriaName][sheet] = [currentSheetData[col + str(indexes[sheet])].value for col in criteriaCols ]
 
-    return tier
+    return graphicsInformation
 
-def addTier(tier):
+def editCriteriaAllMonths(criteriaName):
 
-    row = parametersIndexes["Tier"][1]
-    col = parametersIndexes["Tier"][0]
+    criteriaDict = graphicsInformation[criteriaName]
 
-    graphicsSheet.cell(row,col).value = "Mes"
-    graphicsSheet.cell(row,col+1).value = "Tier 1"
-    graphicsSheet.cell(row,col+2).value = "Tier 2"
-    graphicsSheet.cell(row,col+3).value = "Tier 3"
+    dataPoints = len(criteriaDict[list(criteriaDict.keys())[0]])
 
-    row += 1
+    editList = [0 for i in range(dataPoints)]
 
-    for month in worksheets:
-        graphicsSheet.cell(row,col).value = month
-        graphicsSheet.cell(row,col+1).value = tier[month][0]
-        graphicsSheet.cell(row,col+2).value = tier[month][1]
-        graphicsSheet.cell(row,col+3).value = tier[month][2]
-        row += 1
+    for key in criteriaDict.keys():
+
+        index = 0
+        for element in criteriaDict[key]:
+
+            editList[index] += element
+
+    graphicsInformation[criteriaName] = editList
+
+def addCriteriaPerMonth(criteriaName):
 
 
 
@@ -165,11 +138,26 @@ indexes = getIndexes(excelData, worksheets)
 
 # --------- Processing the data and creating the tables
 
-impactos = getImpactos(excelData, indexes)
-addImpactos(impactos)
+graphicsInformation = {}
 
-tier = getTier(excelData, indexes)
-addTier(tier)
+criteriaColsPerMonth = {
+    "Impactos": ["K"],
+    "Tier": ["O", "P", "Q"],
+    "Valor Publicitario": ["L"],
+    "Valor Informativo": ["M"],
+    "Favorabilidad Mediatica": ["X", "Y", "Z"],
+    "Quote de Vocero" : ["V"],
+    "Presencia de Vocero": ["T"],
+    "Mencion de Marca": ["R"]
+}
+
+for criteria in criteriaColsPerMonth.keys():
+
+    getCriteriaPerMonth(criteria, criteriaColsPerMonth[criteria], excelData, indexes)
+
+editCriteriaAllMonths("Favorabilidad Mediatica")
+
+print(graphicsInformation)
 
 
 # --------- Saving files
