@@ -71,30 +71,36 @@ def getParametersIndexes():
 
     return parametersIndexes
 
-def getImpactos(data, sheets):
+def getIndexes(data, worksheets):
 
-    impactos = {}
+    indexes = {}
 
-    for sheet in sheets:
+    for month in worksheets:
 
-        currentSheetData = data[sheet]
+        index = 9
 
-        currentMonthValue = currentSheetData["K9"].value
-
-        indexValue = 9
         while (True):
 
-            currentMonthValue = currentSheetData["K" + str(indexValue)].value 
+            if (data[month].cell(index,11).value == None):
 
-            if (currentMonthValue == None):
+                indexes[month] = index - 1
 
                 break
 
-            indexValue += 1
+            index += 1
 
-        impactos[sheet] = currentSheetData["K" + str(indexValue-1)].value 
-
+    return indexes
     
+def getImpactos(data, indexes):
+
+    impactos = {}
+
+    for sheet in indexes.keys():
+
+        currentSheetData = data[sheet]  
+
+        impactos[sheet] = currentSheetData["K" + str(indexes[sheet])].value 
+
     return impactos 
 
 def addImpactos(impactos):
@@ -112,9 +118,38 @@ def addImpactos(impactos):
         graphicsSheet.cell(row,col+1).value = impactos[month]
         row += 1
 
-def getTier(data, sheets):
+def getTier(data, indexes):
 
-    Tier = {}
+    tier = {}
+
+    for sheet in indexes.keys():
+
+        currentSheetData = data[sheet]
+
+        tier[sheet] = [currentSheetData["O" + str(indexes[sheet])].value, currentSheetData["P" + str(indexes[sheet])].value, currentSheetData["Q" + str(indexes[sheet])].value]
+
+    return tier
+
+def addTier(tier):
+
+    row = parametersIndexes["Tier"][1]
+    col = parametersIndexes["Tier"][0]
+
+    graphicsSheet.cell(row,col).value = "Mes"
+    graphicsSheet.cell(row,col+1).value = "Tier 1"
+    graphicsSheet.cell(row,col+2).value = "Tier 2"
+    graphicsSheet.cell(row,col+3).value = "Tier 3"
+
+    row += 1
+
+    for month in worksheets:
+        graphicsSheet.cell(row,col).value = month
+        graphicsSheet.cell(row,col+1).value = tier[month][0]
+        graphicsSheet.cell(row,col+2).value = tier[month][1]
+        graphicsSheet.cell(row,col+3).value = tier[month][2]
+        row += 1
+
+
 
 # -------- Initializing information
 
@@ -126,10 +161,16 @@ excelData = load_workbook(fileName, data_only=True, read_only=True)
 
 graphicsSheet, graphicsSpreadsheet = createGraphicsWorksheet()
 
+indexes = getIndexes(excelData, worksheets)
+
 # --------- Processing the data and creating the tables
 
-impactos = getImpactos(excelData, worksheets)
+impactos = getImpactos(excelData, indexes)
 addImpactos(impactos)
+
+tier = getTier(excelData, indexes)
+addTier(tier)
+
 
 # --------- Saving files
 
