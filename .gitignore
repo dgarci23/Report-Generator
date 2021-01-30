@@ -1,4 +1,5 @@
 *.xlsx
 *.pptx
 __pycache__
-
+chromedriver.exe
+chromedriver
