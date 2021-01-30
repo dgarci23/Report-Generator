@@ -1,11 +1,5 @@
-from pptx import Presentation
-from pptx.util import Inches, Pt
-from pptx.enum.text import PP_ALIGN
 from openpyxl import load_workbook, Workbook
 from openpyxl.styles import Font
-from selenium import webdriver
-from PIL import Image
-from docx import Document
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
