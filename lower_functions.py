@@ -1287,6 +1287,7 @@ def CreateMessage(file_size, tipo, Cred):
 
     message["From"] = Cred["sender_email"]
 
+
     message["To"] = Cred["receiver_email"]
 
     [message["Subject"], filename] = f_size_type(file_size, tipo)
