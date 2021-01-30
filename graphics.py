@@ -365,6 +365,10 @@ if (len(msgs) > 0):
 
         preferencias = get_attachments(mail, msgs, email_id)
 
+else:
+    
+    exit()
+
 fileName = preferencias[0]
 
 # -------- Initializing information
