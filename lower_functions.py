@@ -49,6 +49,8 @@ def loadXLSX(Preferencias, Empresa):
 
     sheet_ranges = wb[Empresa["Mes"]]
 
+    print(Empresa["Mes"])
+
     return sheet_ranges
 
 # -------------------------------------Funciones sobre Medidas------------------------------
@@ -163,7 +165,6 @@ def f_FinalIndex(sheet_ranges):
     while (True):
 
         check_cell = 'A' + str(index_answers)
-
         if sheet_ranges[check_cell].value.lower() == 'resultados totales':
             index_final = index_answers - 1
             break
@@ -206,16 +207,16 @@ def f_loopScreenShots(NombreEmpresa, index_final, sheet_ranges):
 
     for current_index in range(9, index_final):
 
-        link = sheet_ranges['AA' + str(current_index)].value.lower()
+        link = sheet_ranges['AB' + str(current_index)].value.lower()
 
         if "http" in link:
 
             f_ScreenShots(NombreEmpresa, current_index-8, link)
-            print('Exito: ' + link)
+            # print('Exito: ' + link)
 
-        elif "radio" in link:
+        # elif "radio" in link:
 
-            RadioImage(NombreEmpresa, current_index-8, link)
+            # RadioImage(NombreEmpresa, current_index-8, link)
 
 
 '''
@@ -253,14 +254,24 @@ def f_ScreenShots(NombreEmpresa, current_index, link):
 
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--disable-infobars')
+    options.add_argument('--disable-browser-side-navigation')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--disable-features=VizDisplayCompositor')
+    options.add_argument('--force-device-scale-factor=1')
 
     delay = 100
     # CHANGE WITH RESPECT TO LINUX VERSION '.EXE'
     with webdriver.Chrome('./chromedriver', options=options) as driver:
 
-        file_name = NombreEmpresa + ' ' + str(current_index) + '.png'
+        file_name = NombreEmpresa + ' ' + str(current_index)
 
-        if os.path.exists(file_name): return 0;
+        file_name = file_name + '.png'
+
+        if os.path.exists(file_name + '.jpg'): return 0;
+        if os.path.exists(file_name + '.png'): return 0;
 
         width = 1000
         height = 1000
@@ -360,6 +371,8 @@ def sortFunction(element):
 
     if element[1] in medios_digitales: return 1
     if element[1] in medios_tradicionales: return 0
+    
+    return 0
 
 # ---------------------------Funciones para añadir contenido a diapositivas-----------------
 # Descripción: añadir el contenido de las diapositivas (tabla, titulo, imagen, icono)
@@ -526,12 +539,12 @@ Añade el icono
 '''
 def addIcon(file_name, IconoMedidas, slide):
 
-    file_name=file_name.strip()
+    file_name=file_name.strip().lower()
 
-    if file_name in ['Noticiero', 'Televisión']:
-        file_name = 'TV'
+    if file_name in ['noticiero', 'televisión']:
+        file_name = 'tv'
 
-    if file_name == 'Impreso':
+    if file_name == 'impreso':
         IconoMedidas["Height"] = Inches(0.85)
         IconoMedidas["Top"] -= Inches(0.1)
 
@@ -839,7 +852,7 @@ def f_extractElement(sel_categoria, categorias, txt):
     index = 0
     end = 1
     while end >= 0:
-        index = txt.find(sel_categoria, index)
+        index = txt.lower().find(sel_categoria.lower(), index)
         end *= index/abs(index)
 
         indexStart = index + len(sel_categoria)
@@ -939,7 +952,7 @@ def f_date2number(fecha):
     tmp = fecha
     fecha = fecha.split()
 
-    Año = '2020'
+    Año = '2021'
 
     if type(fecha)==list and len(fecha)>2:
         Mes = fecha[2]
@@ -971,7 +984,7 @@ def f_date2number(fecha):
 
         Dia = fecha[0]
 
-        fecha = datetime.datetime.strptime('2020' + Mes + Dia, '%Y%m%d')
+        fecha = datetime.datetime.strptime('2021' + Mes + Dia, '%Y%m%d')
     else:
         fecha = tmp
 
@@ -993,7 +1006,7 @@ def FillExcel(data, categorias, sheet_ranges, orderGestion):
 
     col_cat = {"Fecha" : ['F'],
                         "Título de Publicación" : ['J'],
-                        "Link" : ['AA'],
+                        "Link" : ['AB'],
                         "Tipo de Gestión" : ['D'],
                         "Titular de Gestión" : ['E'],
                         "Nombre de Medio" : ['H'],
@@ -1144,11 +1157,13 @@ Agrega el Titular de Gestion y el Tipo de Gestion
 '''
 def Gestion_loop(data, sheet_ranges, orderGestion):
     gestion_cat = [["Titular de Gestión", 'E'],["Tipo de Gestión", 'D']]
+
     for gestion_tipo in gestion_cat:
 
         for index in range(len(data["Fecha"])):
 
             sheet_ranges[gestion_tipo[1] + str(index + 9)].value = data[gestion_tipo[0]][orderGestion[index]]
+    
 
 
 #

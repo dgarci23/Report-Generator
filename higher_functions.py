@@ -60,7 +60,7 @@ def DanielaPPTX(Preferencias):
                 FechaMedidas, slide)
         #print('Fecha añadida')
 
-        addLink(sheet_ranges['AA' + str(index_copy)].value, slide)
+        addLink(sheet_ranges['AB' + str(index_copy)].value, slide)
         #print('Link añadido')
 
         addCaptura(Empresa["Nombre"], index_copy - 8, slide, CapturaMedidas)
